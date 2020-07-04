@@ -1,42 +1,42 @@
-const form = document.querySelector(".js-hello"),
-  input = form.querySelector("input"),
-  greeting = document.querySelector(".js-greetings");
+const helloContainer = document.querySelector(".js-hello"),
+  helloInput = helloContainer.querySelector("input"),
+  helloWelcome = document.querySelector(".js-welcome");
 
-const USER_NL = "currentUser";
+const LOAD_USER = "currentUser";
 const SHOWING = "showing";
 
-function saveName(text) {
-  localStorage.setItem(USER_NL, text);
+function setUser(name) {
+  localStorage.setItem(LOAD_USER, name);
 }
 
 function handleSubmit(event) {
   event.preventDefault();
-  const currentValue = input.value;
-  paintHello(currentValue);
-  saveName(currentValue);
+  const value = helloInput.value;
+  paintHello(value);
+  setUser(value);
 }
 
-function askForName() {
-  form.classList.add(SHOWING);
-  form.addEventListener("submit", handleSubmit);
+function askYourName() {
+  helloContainer.classList.add(SHOWING);
+  helloContainer.addEventListener("submit", handleSubmit);
 }
 
-function paintHello(text) {
-  form.classList.remove(SHOWING);
-  greeting.classList.add(SHOWING);
-  greeting.innerText = `Hello ${text}`;
+function paintHello(name) {
+  helloContainer.classList.remove(SHOWING);
+  helloWelcome.classList.add(SHOWING);
+  helloWelcome.innerText = `Hello ${name}`;
 }
 
-function loadHello() {
-  const currentUser = localStorage.getItem(USER_NL);
+function getUser() {
+  const currentUser = localStorage.getItem(LOAD_USER);
   if (currentUser === null) {
-    askForName();
+    askYourName();
   } else {
     paintHello(currentUser);
   }
 }
 
 function init() {
-  loadHello();
+  getUser();
 }
 init();
