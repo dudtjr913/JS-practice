@@ -1,42 +1,44 @@
-const helloContainer = document.querySelector(".js-hello"),
-  helloInput = helloContainer.querySelector("input"),
+const helloForm = document.querySelector(".js-hello"),
+  helloInput = helloForm.querySelector("input"),
   helloWelcome = document.querySelector(".js-welcome");
 
-const LOAD_USER = "currentUser";
+const USER_NAME = "currentUser";
 const SHOWING = "showing";
 
 function setUser(name) {
-  localStorage.setItem(LOAD_USER, name);
+  localStorage.setItem(USER_NAME, name);
 }
 
 function handleSubmit(event) {
   event.preventDefault();
   const value = helloInput.value;
-  paintHello(value);
   setUser(value);
+  welcomeUser(value);
 }
 
-function askYourName() {
-  helloContainer.classList.add(SHOWING);
-  helloContainer.addEventListener("submit", handleSubmit);
+function askName() {
+  helloWelcome.classList.remove(SHOWING);
+  helloForm.classList.add(SHOWING);
+  helloForm.addEventListener("submit", handleSubmit);
 }
 
-function paintHello(name) {
-  helloContainer.classList.remove(SHOWING);
+function welcomeUser(name) {
   helloWelcome.classList.add(SHOWING);
+  helloForm.classList.remove(SHOWING);
   helloWelcome.innerText = `Hello ${name}`;
 }
 
 function getUser() {
-  const currentUser = localStorage.getItem(LOAD_USER);
+  const currentUser = localStorage.getItem(USER_NAME);
   if (currentUser === null) {
-    askYourName();
+    askName();
   } else {
-    paintHello(currentUser);
+    welcomeUser(currentUser);
   }
 }
 
 function init() {
   getUser();
 }
+
 init();
