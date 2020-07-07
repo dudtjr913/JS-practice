@@ -1,4 +1,4 @@
-const coords = document.querySelector(".js-coords");
+const weatherInf = document.querySelector(".js-weather");
 
 const USER_GEO = "geo";
 const API_KEY = "83a2e79014cb1a10f8b1e4087082c3f1";
@@ -11,22 +11,20 @@ function paintGeo(lat, lon) {
       return response.json();
     })
     .then(function (json) {
-      console.log(json);
       const temp = json.main.temp;
-      const place = json.name;
-      coords.innerText = `${temp} @ ${place}`;
+      const name = json.name;
+      weatherInf.innerText = `${name} , ${temp}℃ `;
     });
 }
 
 function geoSuccess(geo) {
-  const longitude = geo.coords.longitude,
-    latitude = geo.coords.latitude;
+  const lat = geo.coords.latitude;
+  const lon = geo.coords.longitude;
   const geoObj = {
-    longitude: longitude,
-    latitude: latitude,
+    lat: lat,
+    lon: lon,
   };
   localStorage.setItem(USER_GEO, JSON.stringify(geoObj));
-  paintGeo(latitude, longitude);
 }
 function geoFail() {
   console.log("you can't acceess");

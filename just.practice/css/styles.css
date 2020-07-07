@@ -1,0 +1,22 @@
+.welcome,
+.hello {
+  display: none;
+}
+
+.showing {
+  display: block;
+}
+
+.bgShow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.weather {
+  font-weight: 700;
+  font-size: 25px;
+}
